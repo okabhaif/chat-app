@@ -16,45 +16,83 @@ export default class App extends React.Component {
     return (
 
       <View style={styles.container} >
-        <ImageBackground source={image} style={styles.image}>
+        <ImageBackground
+          accessibilityRole='image'
+          source={image}
+          style={styles.image}
+        >
 
-          <Text style={styles.title}> Chat App</Text>
+          <Text
+            accessibilityRole={'header', 'text'}
+            style={styles.title}
+          >
+            Chat App
+          </Text>
 
           <View style={styles.containerBottom}>
             <TextInput
+              accessible={true}
+              accessibilityLabel='enter text here'
+              accessibilityHint="Customise your chat username here"
               style={styles.input}
               onChangeText={(username) => this.setState({ username })}
               value={this.state.username}
               placeholder={'Your Name'}
               maxLength={40}
             />
-            <Text style={styles.choiceHeader}>Choose Background Colour:</Text>
+            <Text
+              accessibilityRole='text'
+              style={styles.choiceHeader}
+            >
+              Choose Background Colour:
+            </Text>
 
             <View style={styles.buttons}>
               <TouchableOpacity
-                accessibilityLabel="This button changes the background colour of your chat screen to black"
+                accessible={true}
+                accessibilityRole='button'
+                accessibilityLabel="Select black colour"
+                accessibilityHint="Clicking on this button allows users to customise their chat background colour to black"
                 style={[{ backgroundColor: '#090C08' }, styles.backgroundColourButtons]}
                 onPress={(colour) => this.setState({ colour: '#090C08' })} />
               <TouchableOpacity
-                accessibilityLabel="This button changes the background colour of your chat screen to a navy blue colour"
+                accessible={true}
+                accessibilityRole='button'
+                accessibilityLabel="Select mauve colour"
+                accessibilityHint="Clicking on this button allows users to customise their chat background colour to mauve"
                 style={[{ backgroundColor: '#474056' }, styles.backgroundColourButtons]}
                 onPress={(colour) => this.setState({ colour: '#474056' })} />
               <TouchableOpacity
-                accessibilityLabel="This button changes the background colour of your chat screen to a light blue colour"
+                accessible={true}
+                accessibilityRole='button'
+                accessibilityLabel="Select light-blue colour"
+                accessibilityHint="Clicking on this button allows users to customise their chat background colour to light-blue"
                 style={[{ backgroundColor: '#8A95A5' }, styles.backgroundColourButtons]}
                 onPress={(colour) => this.setState({ colour: '#8A95A5' })} />
               <TouchableOpacity
-                accessibilityLabel="This button changes the background colour of your chat screen to a light green colour"
+                accessible={true}
+                accessibilityRole='button'
+                accessibilityLabel="Select light-green colour"
+                accessibilityHint="Clicking on this button allows users to customise their chat background colour to light-green"
                 style={[{ backgroundColor: '#B9C6AE' }, styles.backgroundColourButtons]}
                 onPress={(colour) => this.setState({ colour: '#B9C6AE' })} />
             </View>
 
             <TouchableOpacity
-              accessibilityLabel="This button launches your chat page"
+              accessible={true}
+              accessibilityRole='button'
+              accessibilityLabel="Go to chat screen"
+              accessibilityHint="Navigate to chat screen"
               color='#757083'
               style={styles.chatButton}
               onPress={() => this.props.navigation.navigate('Chat', { username: this.state.username, colour: this.state.colour })}>
-              <Text style={styles.chatButtonText}>Start Chatting</Text>
+
+              <Text
+                accessibilityRole='text'
+                style={styles.chatButtonText}
+              >
+                Start Chatting
+              </Text>
 
             </TouchableOpacity>
           </View>
