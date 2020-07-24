@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat'
-// import KeyboardSpacer from 'react-native-keyboard-spacer'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 
 export default class Chat extends React.Component {
@@ -88,7 +88,7 @@ export default class Chat extends React.Component {
         />
 
         {/* prevents the input field from getting covered by the keyboard if the user is on an android phone */}
-        {/* {Platform.OS === 'android' ? <KeyboardSpacer /> : null} */}
+        {Platform.OS === 'android' ? <KeyboardSpacer /> : null}
 
       </View>
     )
