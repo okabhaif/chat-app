@@ -122,9 +122,18 @@ export default class Chat extends React.Component {
    });
  };
 
+ //gets logged in user from state
+ getUser(){
+   return {
+     ...this.state.user,
+     _id: this.state.uid,
+   }
+ };
+
  addMessage(message) {
   this.referenceMessages.add(message);
-}
+};
+
   onSend(messages = []) {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
@@ -133,8 +142,7 @@ export default class Chat extends React.Component {
       _id: messages[0]._id,
       text:  messages[0].text,
       createdAt:  messages[0].createdAt,
-      uid:  this.state.uid,
-      user: this.state.user
+      user: this.getUser(),
     });  
   }
 
@@ -185,7 +193,7 @@ export default class Chat extends React.Component {
         />
 
         {/* prevents the input field from getting covered by the keyboard if the user is on an android phone */}
-        {Platform.OS === 'android' ? <KeyboardSpacer topSpacing={-280} /> : null}
+        {Platform.OS === 'android' ? <KeyboardSpacer topSpacing={-320} /> : null}
 
       </View>
     )
@@ -195,7 +203,9 @@ export default class Chat extends React.Component {
 const styles = StyleSheet.create({
   loggedInText: {
     alignSelf: 'center',
-    paddingBottom: 1,     
+    paddingBottom: 1, 
+    color: 'white',
+    
   
   },
 });
