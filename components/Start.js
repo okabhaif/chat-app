@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, StyleSheet, View, Text, TextInput, Button, ImageBackground } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Text, TextInput, Button, ImageBackground, YellowBox } from 'react-native';
+import _ from 'lodash';
 
+YellowBox.ignoreWarnings(['Setting a timer']);
+const _console = _.clone(console);
+console.warn = message => {
+  if (message.indexOf('Setting a timer') <= -1) {
+    _console.warn(message);
+  }
+};
 const image = require('../assets/background.png');
 
 export default class App extends React.Component {

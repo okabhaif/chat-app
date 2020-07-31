@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, YellowBox, Text, StyleSheet} from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
+import _ from 'lodash';
 
+YellowBox.ignoreWarnings(['Setting a timer']);
+const _console = _.clone(console);
+console.warn = message => {
+  if (message.indexOf('Setting a timer') <= -1) {
+    _console.warn(message);
+  }
+};
 
 const firebase = require('firebase');
 require('firebase/firestore');
@@ -30,6 +38,7 @@ export default class Chat extends React.Component {
     this.state = {
       messages: [],
       uid: 0,
+      loggedInText:'Please wait, you are getting logged in',
       user: {
         _id: '',	          
         name: '',	          
@@ -51,10 +60,8 @@ export default class Chat extends React.Component {
     //update user state with currently active user data
     this.setState({
       uid: user.uid,
-      loggedInText: "Welcome to your chat",
+      loggedInText: "Welcome to your chat " + username,
     });
-    // create a reference to the active user's documents (shopping lists)
-    // this.referenceMessageUser = firebase.firestore().collection('messages').where("uid", "==", this.state.uid);
     // listen for collection changes for current user 
     this.unsubscribe = this.referenceMessages.onSnapshot(this.onCollectionUpdate);
   });
@@ -157,6 +164,7 @@ export default class Chat extends React.Component {
     return (
       //uses the backgroundColour variable to customise the chat screen background colour
       <View style={{ flex: 1, backgroundColor: backgroundColour }}>
+      <Text style={styles.loggedInText}>{this.state.loggedInText}</Text>
 
         <GiftedChat
           accessible={true}
@@ -183,3 +191,11 @@ export default class Chat extends React.Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  loggedInText: {
+    alignSelf: 'center',
+    paddingBottom: 1,     
+  
+  },
+});
