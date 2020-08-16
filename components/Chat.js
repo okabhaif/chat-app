@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, YellowBox, Text, StyleSheet} from 'react-native';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat'
+import AsyncStorage from '@react-native-community/async-storage';
+import NetInfo from '@react-native-community/netinfo';
+
+import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 import _ from 'lodash';
 
@@ -43,7 +46,8 @@ export default class Chat extends React.Component {
         _id: '',	          
         name: '',	          
         avatar: ''
-      }
+      },
+      isConnected: false,
 
     };
     
@@ -52,6 +56,13 @@ export default class Chat extends React.Component {
   componentDidMount() {
     //username generated through user's input on start screen
     let username = this.props.route.params.username;
+    NetInfo.fetch().then(isConnected => {
+      if (isConnected) {
+        console.log('online');
+        this.setState({
+          isConnected : true,
+        })
+
     // listen to authentication events
     this.authUnsubscribe = firebase.auth().onAuthStateChanged(async user => {
       if (!user) {
@@ -65,28 +76,14 @@ export default class Chat extends React.Component {
     // listen for collection changes for current user 
     this.unsubscribe = this.referenceMessages.onSnapshot(this.onCollectionUpdate);
   });
+} else {
+  console.log('offline');
+  this.setState({
+    isConnected: false,
 
-    this.setState({
-
-      messages: [
-        {
-          _id: 1,
-          text: 'Hello developer',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
-          },
-        },
-        //creates a system message saying '{username}' has entered the chat
-        {
-          _id: 2,
-          text: username + ' has entered the chat',
-          createdAt: new Date(),
-          system: true,
-        },
-      ],
+  })
+  this.getMessages();
+}
     })
   }
 
@@ -134,6 +131,38 @@ export default class Chat extends React.Component {
   this.referenceMessages.add(message);
 };
 
+//async functions
+//get messages from async storage
+async getMessages() {
+  let messages = '';
+  try {
+    messages = await AsyncStorage.getItem('messages') || [];
+    this.setState({
+      messages: JSON.parse(messages)
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+//save messages to async storage
+async saveMessages() {
+  try {
+    await AsyncStorage.setItem('messages', JSON.stringify(this.state.messages));
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+//delete message from async storage
+async deleteMessages() {
+  try {
+    await AsyncStorage.removeItem('messages');
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
   onSend(messages = []) {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
@@ -144,6 +173,7 @@ export default class Chat extends React.Component {
       createdAt:  messages[0].createdAt,
       user: this.getUser(),
     });  
+    this.saveMessages();
   }
 
   //function allows customisation of user's chat bubble background colour
@@ -158,6 +188,16 @@ export default class Chat extends React.Component {
         }}
       />
     )
+  }
+
+  renderInputToolbar(props) {
+    if (this.state.isConnected == false) {
+    } else {
+      return(
+        <InputToolbar
+        />
+      );
+    }
   }
 
   render() {
