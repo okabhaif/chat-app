@@ -222,7 +222,7 @@ async deleteMessages() {
 
           //allows customisation of chat bubble e.g. background in this case 
           renderBubble={this.renderBubble.bind(this)}
-
+          renderInputToolbar={this.renderInputToolbar.bind(this)}
           //messages are taken from the state - allows component to render initial system message
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
