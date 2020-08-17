@@ -143,9 +143,9 @@ async getMessages() {
 }
 
 //save messages to async storage
-async saveMessages() {
+async saveMessages(messages) {
   try {
-    await AsyncStorage.setItem('messages', JSON.stringify(this.state.messages));
+    await AsyncStorage.setItem('messages', JSON.stringify(messages));
   } catch (error) {
     console.log(error.message);
   }
@@ -161,16 +161,18 @@ async deleteMessages() {
 }
 
   onSend(messages = []) {
-    this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }))
+    const newMessages = GiftedChat.append(this.state.messages, messages);
+    this.setState({
+      messages: newMessages
+    })
     this.addMessage({
       _id: messages[0]._id,
       text:  messages[0].text,
       createdAt:  messages[0].createdAt,
       user: this.getUser(),
     });  
-    this.saveMessages();
+    console.log(newMessages);
+    this.saveMessages(newMessages);
   }
 
   //function allows customisation of user's chat bubble background colour
