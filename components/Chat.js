@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { View, YellowBox, Text, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import NetInfo from '@react-native-community/netinfo';
+import MapView from 'react-native-maps';
 
-import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat'
-import KeyboardSpacer from 'react-native-keyboard-spacer'
+import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
+import CustomActions from './CustomActions';
+
+import KeyboardSpacer from 'react-native-keyboard-spacer';
+
 import _ from 'lodash';
 
 YellowBox.ignoreWarnings(['Setting a timer']);
@@ -48,6 +52,9 @@ export default class Chat extends React.Component {
         avatar: ''
       },
       isConnected: false,
+      image: '',
+      location: '',
+
     };
   }
 
@@ -98,8 +105,10 @@ export default class Chat extends React.Component {
      //pushes message object
      messages.push({
       _id: data._id,
-      text: data.text.toString(),
+      text: data.text.toString() || '',
       createdAt: data.createdAt.toDate(),
+      image: data.image || '',
+      location: data.location || '',
       user: {
         _id: data.user._id,	          
         name: data.user.name,	          
@@ -167,8 +176,10 @@ async deleteMessages() {
     })
     this.addMessage({
       _id: messages[0]._id,
-      text:  messages[0].text,
+      text:  messages[0].text || '',
       createdAt:  messages[0].createdAt,
+      image: messages[0].image || '',
+      location: messages[0].location || '',
       user: this.getUser(),
     });  
     console.log(newMessages);
@@ -199,6 +210,31 @@ async deleteMessages() {
     }
   }
 
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />;
+  };
+
+  renderCustomView (props) {
+    const { currentMessage} = props;
+    if (currentMessage.location) {
+      return (
+          <MapView
+            style={{width: 150,
+              height: 100,
+              borderRadius: 13,
+              margin: 3}}
+            region={{
+              latitude: currentMessage.location.latitude,
+              longitude: currentMessage.location.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          />
+      );
+    }
+    return null;
+  }
+
   render() {
     //takes username entered in start page and uses as a variable 'username' 
     let username = this.props.route.params.username;
@@ -222,6 +258,8 @@ async deleteMessages() {
           //allows customisation of chat bubble e.g. background in this case 
           renderBubble={this.renderBubble.bind(this)}
           renderInputToolbar={this.renderInputToolbar.bind(this)}
+          renderCustomView={this.renderCustomView.bind(this)}
+          renderActions={this.renderCustomActions.bind(this)}
           //messages are taken from the state - allows component to render initial system message
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
