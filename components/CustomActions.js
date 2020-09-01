@@ -110,7 +110,7 @@ export default class CustomActions extends React.Component {
 
     //allows more than one image to be stored in cloud by giving each image a unique name
     let uriParts = uri.split('/')
-    let newImageName = uriParts[uriParts.length - 1]
+    const newImageName = uriParts[uriParts.length - 1]
 
     const ref = firebase.storage().ref().child(`${newImageName}`)
     

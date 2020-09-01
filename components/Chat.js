@@ -60,7 +60,7 @@ export default class Chat extends React.Component {
 
   componentDidMount() {
     //username generated through user's input on start screen
-    let username = this.props.route.params.username;
+    const username = this.props.route.params.username;
     NetInfo.fetch().then(({isConnected}) => {
       if (isConnected) {
         console.log('online');
@@ -101,7 +101,7 @@ export default class Chat extends React.Component {
    // go through each document
    querySnapshot.forEach((doc) => {
      // get the QueryDocumentSnapshot's data
-     var data = doc.data();
+     const data = doc.data();
      //pushes message object
      messages.push({
       _id: data._id,
@@ -237,10 +237,10 @@ async deleteMessages() {
 
   render() {
     //takes username entered in start page and uses as a variable 'username' 
-    let username = this.props.route.params.username;
+    const username = this.props.route.params.username;
 
     //takes user's colour selection defined on start page and uses it as a variable 'backgroundColour'
-    let backgroundColour = this.props.route.params.colour
+    const backgroundColour = this.props.route.params.colour
 
     //displays username in navigation bar
     this.props.navigation.setOptions({ title: username });
