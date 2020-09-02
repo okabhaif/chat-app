@@ -353,9 +353,9 @@ async deleteMessages() {
           onSend={messages => this.onSend(messages)}
           user={{_id: this.state.uid}}
         />
-        /**
+        {/* /**
          * @description prevents the input field from getting covered by the keyboard if the user is on an android phone
-         */
+         */ }
         {Platform.OS === 'android' ? <KeyboardSpacer topSpacing={-320} /> : null}
       </View>
     )

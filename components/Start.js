@@ -43,9 +43,9 @@ export default class App extends React.Component {
           >
             Chat App
           </Text>
-          /**
+          {/* /**
           *TextInput can be used to set a username for chat screen
-          */
+          */}
           <View style={styles.containerBottom}>
             <TextInput
               accessible={true}
@@ -63,10 +63,10 @@ export default class App extends React.Component {
             >
               Choose Background Colour:
             </Text>
-            /**
+            {/* /**
             *TouchableOpacity buttons are customised in line with project brief 
             *User can select a background colour for their chat screen
-            */
+            */}
             <View style={styles.buttons}>
               <TouchableOpacity
                 accessible={true}
