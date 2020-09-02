@@ -1,4 +1,32 @@
-import React, { Component } from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Chat.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Chat.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component } from 'react';
 import { View, YellowBox, Text, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import NetInfo from '@react-native-community/netinfo';
@@ -14,7 +42,7 @@ import _ from 'lodash';
 YellowBox.ignoreWarnings(['Setting a timer']);
 const _console = _.clone(console);
 console.warn = message => {
-  if (message.indexOf('Setting a timer') <= -1) {
+  if (message.indexOf('Setting a timer') &lt;= -1) {
     _console.warn(message);
   }
 };
@@ -78,9 +106,9 @@ export default class Chat extends React.Component {
      * @description
      * NetInfo package tracks if a user is online or not
      * this impacts the UI and functionality of the app
-     * user's cant access their text input if they are offline & can't send messages
+     * user's cant access their text input if they are offline &amp; can't send messages
      * If user's are offline they can still view messages from their AsyncStorage
-     * If users are online they are able to access firebase storage & can send messages 
+     * If users are online they are able to access firebase storage &amp; can send messages 
      */
     NetInfo.fetch().then(({isConnected}) => {
       if (isConnected) {
@@ -157,7 +185,7 @@ export default class Chat extends React.Component {
 
 /**
 * @function getUser
-* @returns {user<object>}
+* @returns {user&lt;object>}
 * @description this function gets the logged in user from state
 */
  getUser(){
@@ -180,7 +208,7 @@ export default class Chat extends React.Component {
  * @async
  * @function getMessages
  * @description this function is called when the user is offline, it gets Messages from AsyncStorage
- * @returns {Promise<object>} [messages from AsyncStorage]
+ * @returns {Promise&lt;object>} [messages from AsyncStorage]
  */
 async getMessages() {
   let messages = '';
@@ -199,7 +227,7 @@ async getMessages() {
  * @function saveMessages
  * @description this function is called when the user sends a message
  * this allows users to save messages in the AsyncStorage, allowing them to be accessible offline
- * @returns {Promise<string>} [saves stringified messages to AsyncStorage]
+ * @returns {Promise&lt;string>} [saves stringified messages to AsyncStorage]
  */
 async saveMessages(messages) {
   try {
@@ -253,12 +281,12 @@ async deleteMessages() {
 
   /**
    * @function renderBubble
-   * @returns {Component<Bubble>}
+   * @returns {Component&lt;Bubble>}
    * @description Gifted chat library used to render and customise chat bubbles
    */
   renderBubble(props) {
     return (
-      <Bubble
+      &lt;Bubble
         {...props}
         wrapperStyle={{
           right: {
@@ -271,13 +299,13 @@ async deleteMessages() {
 
   /**
    * @function renderInputToolbar
-   * @returns {Component<InputToolbar>}
+   * @returns {Component&lt;InputToolbar>}
    * @description Gifted chat library used to only render an input field when users are online
    */
   renderInputToolbar(props) {
     if (this.state.isConnected) {
       return(
-        <InputToolbar
+        &lt;InputToolbar
         {...props}
         />
       );
@@ -286,23 +314,23 @@ async deleteMessages() {
 
   /**
    * @function renderCustomActions
-   * @returns {Component<CustomActions>}
-   * @description As defined in the Custom Actions component allows users to select a variety of options (take photo, select photo from gallery, share location & cancel)
+   * @returns {Component&lt;CustomActions>}
+   * @description As defined in the Custom Actions component allows users to select a variety of options (take photo, select photo from gallery, share location &amp; cancel)
    */
   renderCustomActions = (props) => {
-    return <CustomActions {...props} />;
+    return &lt;CustomActions {...props} />;
   };
 
   /**
    * @function renderCustomView
-   * @returns {Component<MapView>}
+   * @returns {Component&lt;MapView>}
    * @description This function allows users to share a styled map of their location.
    */
   renderCustomView (props) {
     const { currentMessage} = props;
     if (currentMessage.location) {
       return (
-          <MapView
+          &lt;MapView
             style={{width: 150,
               height: 100,
               borderRadius: 13,
@@ -338,9 +366,9 @@ async deleteMessages() {
     //displays username in navigation bar
     this.props.navigation.setOptions({ title: username });
     return (
-      <View style={{ flex: 1, backgroundColor: backgroundColour }}>
-      <Text style={styles.loggedInText}>{this.state.loggedInText}</Text>
-        <GiftedChat
+      &lt;View style={{ flex: 1, backgroundColor: backgroundColour }}>
+      &lt;Text style={styles.loggedInText}>{this.state.loggedInText}&lt;/Text>
+        &lt;GiftedChat
           accessible={true}
           accessibilityRole={'text', 'button'}
           accessibilityLabel="Chat here"
@@ -356,8 +384,8 @@ async deleteMessages() {
         /**
          * @description prevents the input field from getting covered by the keyboard if the user is on an android phone
          */
-        {Platform.OS === 'android' ? <KeyboardSpacer topSpacing={-320} /> : null}
-      </View>
+        {Platform.OS === 'android' ? &lt;KeyboardSpacer topSpacing={-320} /> : null}
+      &lt;/View>
     )
   }
 }
@@ -374,4 +402,26 @@ const styles = StyleSheet.create({
     paddingBottom: 1, 
     color: 'white',  
   },
-});
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addMessage">addMessage</a></li><li><a href="global.html#deleteMessages">deleteMessages</a></li><li><a href="global.html#firebase">firebase</a></li><li><a href="global.html#getLocation">getLocation</a></li><li><a href="global.html#getMessages">getMessages</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#onActionPress">onActionPress</a></li><li><a href="global.html#onCollectionUpdate">onCollectionUpdate</a></li><li><a href="global.html#onSend">onSend</a></li><li><a href="global.html#pickImage">pickImage</a></li><li><a href="global.html#renderBubble">renderBubble</a></li><li><a href="global.html#renderCustomActions">renderCustomActions</a></li><li><a href="global.html#renderCustomView">renderCustomView</a></li><li><a href="global.html#renderInputToolbar">renderInputToolbar</a></li><li><a href="global.html#saveMessages">saveMessages</a></li><li><a href="global.html#styles">styles</a></li><li><a href="global.html#takePhoto">takePhoto</a></li><li><a href="global.html#uploadImage">uploadImage</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Wed Sep 02 2020 14:53:58 GMT+0100 (British Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,11 +1,39 @@
-import React, { Component } from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Start.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Start.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component } from 'react';
 import { TouchableOpacity, StyleSheet, View, Text, TextInput, Button, ImageBackground, YellowBox } from 'react-native';
 import _ from 'lodash';
 
 YellowBox.ignoreWarnings(['Setting a timer']);
 const _console = _.clone(console);
 console.warn = message => {
-  if (message.indexOf('Setting a timer') <= -1) {
+  if (message.indexOf('Setting a timer') &lt;= -1) {
     _console.warn(message);
   }
 };
@@ -30,24 +58,24 @@ export default class App extends React.Component {
   render() {
     return (
 
-      <View style={styles.container} >
-        <ImageBackground
+      &lt;View style={styles.container} >
+        &lt;ImageBackground
           accessibilityRole='image'
           source={image}
           style={styles.image}
         >
 
-          <Text
+          &lt;Text
             accessibilityRole={'header', 'text'}
             style={styles.title}
           >
             Chat App
-          </Text>
+          &lt;/Text>
           /**
           *TextInput can be used to set a username for chat screen
           */
-          <View style={styles.containerBottom}>
-            <TextInput
+          &lt;View style={styles.containerBottom}>
+            &lt;TextInput
               accessible={true}
               accessibilityLabel='enter text here'
               accessibilityHint="Customise your chat username here"
@@ -57,48 +85,48 @@ export default class App extends React.Component {
               placeholder={'Your Name'}
               maxLength={40}
             />
-            <Text
+            &lt;Text
               accessibilityRole='text'
               style={styles.choiceHeader}
             >
               Choose Background Colour:
-            </Text>
+            &lt;/Text>
             /**
             *TouchableOpacity buttons are customised in line with project brief 
             *User can select a background colour for their chat screen
             */
-            <View style={styles.buttons}>
-              <TouchableOpacity
+            &lt;View style={styles.buttons}>
+              &lt;TouchableOpacity
                 accessible={true}
                 accessibilityRole='button'
                 accessibilityLabel="Select black colour"
                 accessibilityHint="Clicking on this button allows users to customise their chat background colour to black"
                 style={[{ backgroundColor: '#090C08' }, styles.backgroundColourButtons]}
                 onPress={(colour) => this.setState({ colour: '#090C08' })} />
-              <TouchableOpacity
+              &lt;TouchableOpacity
                 accessible={true}
                 accessibilityRole='button'
                 accessibilityLabel="Select mauve colour"
                 accessibilityHint="Clicking on this button allows users to customise their chat background colour to mauve"
                 style={[{ backgroundColor: '#474056' }, styles.backgroundColourButtons]}
                 onPress={(colour) => this.setState({ colour: '#474056' })} />
-              <TouchableOpacity
+              &lt;TouchableOpacity
                 accessible={true}
                 accessibilityRole='button'
                 accessibilityLabel="Select light-blue colour"
                 accessibilityHint="Clicking on this button allows users to customise their chat background colour to light-blue"
                 style={[{ backgroundColor: '#8A95A5' }, styles.backgroundColourButtons]}
                 onPress={(colour) => this.setState({ colour: '#8A95A5' })} />
-              <TouchableOpacity
+              &lt;TouchableOpacity
                 accessible={true}
                 accessibilityRole='button'
                 accessibilityLabel="Select light-green colour"
                 accessibilityHint="Clicking on this button allows users to customise their chat background colour to light-green"
                 style={[{ backgroundColor: '#B9C6AE' }, styles.backgroundColourButtons]}
                 onPress={(colour) => this.setState({ colour: '#B9C6AE' })} />
-            </View>
+            &lt;/View>
 
-            <TouchableOpacity
+            &lt;TouchableOpacity
               accessible={true}
               accessibilityRole='button'
               accessibilityLabel="Go to chat screen"
@@ -107,18 +135,18 @@ export default class App extends React.Component {
               style={styles.chatButton}
               onPress={() => this.props.navigation.navigate('Chat', { username: this.state.username, colour: this.state.colour })}>
 
-              <Text
+              &lt;Text
                 accessibilityRole='text'
                 style={styles.chatButtonText}
               >
                 Start Chatting
-              </Text>
+              &lt;/Text>
 
-            </TouchableOpacity>
-          </View>
-        </ImageBackground>
+            &lt;/TouchableOpacity>
+          &lt;/View>
+        &lt;/ImageBackground>
 
-      </ View >
+      &lt;/ View >
 
     );
   }
@@ -198,4 +226,26 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginBottom: -20
   }
-});
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addMessage">addMessage</a></li><li><a href="global.html#deleteMessages">deleteMessages</a></li><li><a href="global.html#firebase">firebase</a></li><li><a href="global.html#getLocation">getLocation</a></li><li><a href="global.html#getMessages">getMessages</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#onActionPress">onActionPress</a></li><li><a href="global.html#onCollectionUpdate">onCollectionUpdate</a></li><li><a href="global.html#onSend">onSend</a></li><li><a href="global.html#pickImage">pickImage</a></li><li><a href="global.html#renderBubble">renderBubble</a></li><li><a href="global.html#renderCustomActions">renderCustomActions</a></li><li><a href="global.html#renderCustomView">renderCustomView</a></li><li><a href="global.html#renderInputToolbar">renderInputToolbar</a></li><li><a href="global.html#saveMessages">saveMessages</a></li><li><a href="global.html#styles">styles</a></li><li><a href="global.html#takePhoto">takePhoto</a></li><li><a href="global.html#uploadImage">uploadImage</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Wed Sep 02 2020 14:53:59 GMT+0100 (British Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
